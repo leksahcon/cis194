@@ -1,6 +1,4 @@
---This program will validate credit card numbers
-
-
+--This program will validate credit card numbers, eventually.
 
 -- Takes a number and determines how many digits are
 -- available by dividing them by intervals of 10^0 - 10^10000.
@@ -23,13 +21,21 @@ toDigitsRev 0 = [0]
 toDigitsRev x = reverse(toDigits x)
 
 
--------------------------------------------------
---This is where I try to double everyother number.
--- *NEED TO TRY AND USE PATTERN MATCHING*
-
+--Doubles everyother digit within a list.
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther (x:y:_) = x:y*2:[]  
+doubleEveryOther [x] = [x]
+doubleEveryOther (x:y:zs) = x:y*2: doubleEveryOther zs
 
+--------------------------------
+-- The output of doubleEeveryOther has a mix of one-digit and two-digit 
+--numbers. Define function sumDigits
 
-
+sumDigits' :: [Integer] -> [Integer]
+sumDigits' [] = [0] 
+sumDigits' (x:xs)
+     | x < 10 = x : sumDigits' xs
+     | x > 9 = (x-10+1) : sumDigits' xs 
+    
+sumDigits :: [Integer] -> Integer
+sumDigits x  = sum(sumDigits' x) 
 
