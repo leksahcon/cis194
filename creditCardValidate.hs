@@ -23,10 +23,10 @@ toDigitsRev x = reverse(toDigits x)
 
 --Doubles everyother digit within a list.
 doubleEveryOther :: [Integer] -> [Integer]
+doubleEveryOther []  = [0]
 doubleEveryOther [x] = [x]
 doubleEveryOther (x:y:zs) = x:y*2: doubleEveryOther zs
 
---------------------------------
 -- The output of doubleEeveryOther has a mix of one-digit and two-digit 
 --numbers. Define function sumDigits
 
@@ -39,3 +39,10 @@ sumDigits' (x:xs)
 sumDigits :: [Integer] -> Integer
 sumDigits x  = sum(sumDigits' x) 
 
+luhn' :: Integer -> Integer 
+luhn' x  = (sumDigits (doubleEveryOther (toDigitsRev x))) `mod` 10
+
+luhn :: Integer -> Bool
+luhn x 
+     | luhn' x == 0 = True 
+     | luhn' x /= 0 = False
